@@ -1,0 +1,431 @@
+ @font-face {
+     font-family: "HGKSupremeLLVIP";
+     src: url("HGKBSupremeLLVIP.woff2") format("woff2");
+     font-weight: 100 900;
+     font-display: swap;
+ }
+ 
+ #status {
+  display: none;
+}
+
+ body {
+     box-sizing: border-box;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
+     height: 100vh;
+     width: 100vw;
+     font-family: "HGKSupremeLLVIP";
+     background-color: #000;
+ }
+
+ #canvas_pos {
+     width: 50%;
+     height: 100vh;
+     background-color: #000;
+     right: 50%;
+     top: 0;
+     position: fixed;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ #out_canvas {
+     position: absolute;
+     width: 50vw;
+     height: 80vh;
+     object-fit: cover;
+     z-index: 5;
+ }
+
+#out_canvas_colors {
+    position: absolute;
+    width: 50vw;
+    height: 80vh;
+    object-fit: cover;
+    z-index: 15;
+    pointer-events: none;
+}
+
+#status {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 20;
+    color: white;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+ #specimen {
+     width: 50%;
+     height: 100vh;
+     background-color: #000000;
+     left: 50%;
+     top: 0;
+     position: fixed;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+ }
+
+ .main-container {
+     display: flex;
+     background-color: white;
+     gap: 0;
+     overflow: hidden;
+     border-right: 1px solid #ccc;
+     border-bottom: 1px solid #ccc;
+     width: 50vw;
+     height: 80vh;
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+ }
+
+ .col1 {
+     width: 32%;
+     display: flex;
+     flex-direction: column;
+ }
+
+ #dots {
+     background-color: #ffffff;
+     flex: .8;
+     display: flex;
+     flex-wrap: wrap;
+     align-items: center;
+     justify-content: center;
+     padding-left: 1.5vh;
+     padding-top: .7vw;
+     align-content: center;
+ }
+
+ #dots svg {
+     margin-left: -10px;
+     margin-right: -10px;
+     margin-top: -25px;
+ }
+
+ #dots svg:nth-child(1),
+ #dots svg:nth-child(2),
+ #dots svg:nth-child(3) {
+     margin-top: 0;
+ }
+
+ #list {
+     background-color: #ffffff;
+     flex: 1;
+     margin-top: 1.3vw;
+     margin-bottom: 1.3vw;
+     padding: .5vh .9vw;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     font-size: 1vw;
+     font-weight: 500;
+     line-height: 1.6;
+ }
+  /* The margins of list would need to be outcommanded for a bigger screen than a laptop, the line height should also be reduced*/
+
+
+ .list-section {
+     display: flex;
+     flex-direction: column;
+     gap: 0.3vh;
+ }
+
+ .list-item {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .toggle {
+     margin-right: -.5vw;
+     width: 3vw;
+     height: 1vw;
+     border: 1.5px solid black;
+     border-radius: 2vw;
+     background-color: white;
+     position: relative;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+ }
+
+ .toggle-circle {
+     width: 1.5vw;
+     height: .8vw;
+     background-color: black;
+     border-radius: .4vw;
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     left: 0.2vw;
+     transition: left 0.3s ease;
+ }
+
+ .toggle.active .toggle-circle {
+     left: calc(100% - 1.6vw);
+ }
+
+ #nutri {
+     background-color: #ffffff;
+     flex: .5;
+     display: flex;
+     flex-direction: row;
+     padding-left: 18px;
+     padding-right: 8px;
+     margin-top: 1vw;
+     gap: 1px;
+     align-items: center;
+ }
+
+ #nutri>div {
+     flex: 1;
+     background-color: #000;
+     height: 1vw;
+     padding: 2px;
+     color: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 1vw;
+     font-weight: bold;
+     transition: all 0.3s ease;
+     cursor: pointer;
+     position: center;
+ }
+
+ #nutri>div:hover {
+     flex: 1;
+     font-size: 3vw;
+     z-index: 10;
+     height: .1vw;
+ }
+
+ #wrap {
+     background-color: #ffffff;
+     flex: 2;
+     display: flex;
+     justify-content: center;
+     align-items: flex-end;
+     padding-left: .4vw;
+     margin-bottom: 1.5vw;
+ }
+
+ #wrap-square {
+     width: 93%;
+     height: 93%;
+ }
+
+ .triangle {
+     transition: transform 1.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+ }
+
+ #left-triangle {
+     transform-origin: 50% 50%;
+ }
+
+ #bottom-triangle {
+     transform-origin: 50% 50%;
+ }
+
+ #top-triangle {
+     transform-origin: 50% 50%;
+ }
+
+ .folded #left-triangle {
+     transform: rotate3d(-1, -1, 0, 180deg);
+ }
+
+ .folded #bottom-triangle {
+     transform: rotate3d(1, 1, 0, 180deg);
+ }
+
+ .double-folded #left-triangle {
+     transform: rotate3d(-1, -1, 0, 180deg) rotate3d(-1, 1, 0, 180deg);
+ }
+
+ .double-folded #bottom-triangle {
+     transform: rotate3d(1, 1, 0, 180deg);
+ }
+
+ .double-folded #top-triangle {
+     transform: rotate3d(-1, 1, 0, 180deg);
+ }
+
+ svg {
+     perspective: 1000px;
+     transform-style: preserve-3d;
+ }
+
+ .col2 {
+     width: 68%;
+     display: flex;
+     flex-direction: column;
+ }
+
+ .item1 {
+     width: 35vw;
+     background-color: #ffffff;
+ }
+
+
+ .col-full-height {
+     height: calc(900);
+ }
+
+ #text {
+     font-size: 10vw;
+     letter-spacing: 1.6vw;
+     text-align: center;
+     line-height: 8.5vw;
+     margin-top: .05em;
+     font-variation-settings: 'wght' 900;
+ }
+
+ .item2 {
+     height: 38vh;
+     display: flex;
+     flex-direction: column 1fr;
+     margin-top: 1.3vw;
+     margin-bottom: 1.3vw;
+ }
+ /* The margins of item2 would need to be outcommanded for a bigger screen than a laptop */
+
+ .divider {
+     display: flex;
+     flex-direction: column;
+ }
+
+ #code {
+    background-color: white;
+    height: 9.8vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.3vh;
+    padding: 0 2vh;
+}
+
+.barcode-bar {
+    background-color: #000000;
+    height: 80%;
+    flex-shrink: 0;
+}
+
+.bar-thin {
+    width: 0.3vh;
+}
+
+.bar-medium {
+    width: 0.6vh;
+}
+
+.bar-thick {
+    width: 1.2vh;
+}
+
+.bar-space {
+    width: 0.3vh;
+    background-color: transparent;
+}
+
+#numbers {
+    background-color: white;
+    height: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vh;
+}
+
+#value,
+#value2,
+#value3 {
+    color: #000000;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    padding: 0;
+    font-size: 1.2vh;
+    font-weight: bold;
+}
+
+.value-separator {
+    width: 1px;
+    height: 1.2vh;
+    background-color: #000000;
+}
+
+ #clock {
+     background-color: #ffffff;
+     width: auto;
+     height: 30vh;
+ }
+
+ .uhr {
+     width: 95%;
+     height: 95%;
+     object-fit: cover;
+     display: block;
+     margin: auto;
+     margin-top: .4em;
+ }
+
+ #steps {
+     background-color: #ffffff;
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-evenly;
+     align-items: center;
+     padding-right: .4vw;
+ }
+
+ #steps>div {
+     width: 90%;
+     height: 10%;
+     border: 2px solid black;
+     border-radius: 50%;
+     background-color: transparent;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 2.5vw;
+     font-weight: bold;
+     color: transparent;
+     transition: all 0.3s ease;
+     cursor: pointer;
+ }
+
+ #steps>div:hover {
+     background-color: black;
+     color: white;
+     transform: scaleY(1.7);
+ }
+
+ .item3 {
+     flex: .1;
+     display: flex;
+     flex-direction: row;
+     background-color: #ffffff;
+ }
+
+ .crunch {
+     font-weight: bold;
+     font-style: italic;
+     transform: skewX(8deg);
+     font-size: 6.5vw;
+     letter-spacing: 1vw;
+     padding-right: 1vw;
+     padding-bottom: 1vw;
+     line-height: .9;
+ }
